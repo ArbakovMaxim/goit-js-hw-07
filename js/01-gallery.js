@@ -24,8 +24,9 @@ allGalleryEl.insertAdjacentHTML("afterbegin", galleryEl);
 
 allGalleryEl.addEventListener('click', openingOriginalPicture);
 
+
 function openingOriginalPicture(event){
-   
+  
   if(event.target.nodeName !== "IMG"){
       return 
     }
@@ -38,7 +39,24 @@ function openingOriginalPicture(event){
     `)
 
     instance.show()
-  
+
+
+    const visible = instance.visible()
+
+
+    function addAndRemoveEventListener(){
+      if(visible){
+        window.addEventListener("keydown", closeModalInEsc);
+      }
+    }
+
+    addAndRemoveEventListener()
+
+    function closeModalInEsc(event){
+      if(event.code !== "Escape"){
+        return
+      }
+        window.removeEventListener("keydown", closeModalInEsc)
+        instance.close()
+    }
 }
-
-
