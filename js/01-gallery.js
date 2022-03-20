@@ -44,19 +44,19 @@ function openingOriginalPicture(event){
     const visible = instance.visible()
 
 
-    function addAndRemoveEventListener(){
+    function addEventListener(){
       if(visible){
-        window.addEventListener("keydown", closeModalInEsc);
+        window.addEventListener("keydown", closeModalInEscAndRemoveEventListener);
       }
     }
 
-    addAndRemoveEventListener()
+    addEventListener()
 
-    function closeModalInEsc(event){
+    function closeModalInEscAndRemoveEventListener(event){
       if(event.code !== "Escape"){
         return
       }
-        window.removeEventListener("keydown", closeModalInEsc)
+        window.removeEventListener("keydown", closeModalInEscAndRemoveEventListener)
         instance.close()
     }
 }
