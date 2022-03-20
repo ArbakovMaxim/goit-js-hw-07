@@ -12,7 +12,7 @@ const galleryEl = galleryItems.map(galleryItem => {
                   <img
                       class="gallery__image"
                       src="${galleryItem.preview}"
-                      data-source="large-image.jpg"
+                      data-source="${galleryItem.original}"
                       alt="${galleryItem.description}"
                   />
               </a>
@@ -29,18 +29,16 @@ function openingOriginalPicture(event){
   if(event.target.nodeName !== "IMG"){
       return 
     }
+
+    const largeImage = event.target.dataset.source;
     event.preventDefault()
-    instance.show();
+
+    const instance = basicLightbox.create(`
+    <img src="${largeImage}" width="800" height="600">
+    `)
+
+    instance.show()
   
 }
 
-const refs = {
-  imgEL : document.querySelector(".gallery__image"),
-  linkEl : document.querySelector(".gallery__link"),
-  galleryItemEl : document.querySelector(".gallery__item")
 
-}
-
-const instance = basicLightbox.create(`
-    <img src="${refs.linkEl}" width="800" height="600">
-`)
