@@ -1,8 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-console.log(galleryItems);
-
 const allGalleryEl = document.querySelector('.gallery');
 
 const galleryEl = galleryItems.map(galleryItem => {
@@ -22,10 +20,10 @@ const galleryEl = galleryItems.map(galleryItem => {
 allGalleryEl.insertAdjacentHTML("afterbegin", galleryEl);
 
 
-allGalleryEl.addEventListener('click', openingOriginalPicture);
+allGalleryEl.addEventListener('click', onOriginalPicture);
 
 
-function openingOriginalPicture(event){
+/* function onOriginalPicture(event){
   
   if(event.target.nodeName !== "IMG"){
       return 
@@ -59,4 +57,33 @@ function openingOriginalPicture(event){
         window.removeEventListener("keydown", closeModalInEscAndRemoveEventListener)
         instance.close()
     }
-}
+} */
+
+
+function onOriginalPicture(event){
+  
+  if(event.target.nodeName !== "IMG"){
+      return 
+    }
+
+    const largeImage = event.target.dataset.source;
+    event.preventDefault()
+
+    const instance = basicLightbox.create(`
+    <img src="${largeImage}" width="800" height="600">
+    <a>Close</a>
+    `, {
+      onShow: () => {
+        window.addEventListener("keydown", offModal);
+      
+        function offModal(event){
+          if(event.code !== "Escape"){
+          return
+        }
+        window.removeEventListener("keydown", offModal)
+        instance.close()
+      }}
+  })
+
+    instance.show()
+  }
