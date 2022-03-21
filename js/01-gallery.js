@@ -22,44 +22,6 @@ allGalleryEl.insertAdjacentHTML("afterbegin", galleryEl);
 
 allGalleryEl.addEventListener('click', onOriginalPicture);
 
-
-/* function onOriginalPicture(event){
-  
-  if(event.target.nodeName !== "IMG"){
-      return 
-    }
-
-    const largeImage = event.target.dataset.source;
-    event.preventDefault()
-
-    const instance = basicLightbox.create(`
-    <img src="${largeImage}" width="800" height="600">
-    `)
-
-    instance.show()
-
-
-    const visible = instance.visible()
-
-
-    function addEventListener(){
-      if(visible){
-        window.addEventListener("keydown", closeModalInEscAndRemoveEventListener);
-      }
-    }
-
-    addEventListener()
-
-    function closeModalInEscAndRemoveEventListener(event){
-      if(event.code !== "Escape"){
-        return
-      }
-        window.removeEventListener("keydown", closeModalInEscAndRemoveEventListener)
-        instance.close()
-    }
-} */
-
-
 function onOriginalPicture(event){
   
   if(event.target.nodeName !== "IMG"){
@@ -71,19 +33,21 @@ function onOriginalPicture(event){
 
     const instance = basicLightbox.create(`
     <img src="${largeImage}" width="800" height="600">
-    <a>Close</a>
-    `, {
+    <a>Close</a>`, {
       onShow: () => {
         window.addEventListener("keydown", offModal);
-      
-        function offModal(event){
-          if(event.code !== "Escape"){
-          return
-        }
+      },
+      onClose: () => {
         window.removeEventListener("keydown", offModal)
-        instance.close()
-      }}
-  })
-
+      }
+    })
+      function offModal(event){
+                if(event.code !== "Escape"){
+                return
+                }
+              instance.close()
+              }
+    
     instance.show()
   }
+
