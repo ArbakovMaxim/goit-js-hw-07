@@ -20,9 +20,9 @@ allGalleryEl.insertAdjacentHTML("afterbegin", galleryEl);
 
 const lightbox = new SimpleLightbox('.gallery a', {captionDelay : 250});
 
-window.addEventListener("keydown", offModal);
+window.addEventListener("keydown", closeModalKeydown);
 
-function offModal(event){
+function closeModalKeydown(event){
     if(event.code !== "Escape"){
     return
     }
