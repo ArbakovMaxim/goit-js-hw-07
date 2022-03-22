@@ -20,6 +20,9 @@ allGalleryEl.insertAdjacentHTML("afterbegin", galleryEl);
 
 const lightbox = new SimpleLightbox('.gallery a', {captionDelay : 250});
 
+
+//закрытие с помощью Escape
+
 window.addEventListener("keydown", closeModalKeydown);
 
 function closeModalKeydown(event){
