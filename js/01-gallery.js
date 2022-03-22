@@ -22,6 +22,8 @@ allGalleryEl.insertAdjacentHTML("afterbegin", galleryEl);
 
 allGalleryEl.addEventListener('click', onOriginalPicture);
 
+let instance = {};
+
 function onOriginalPicture(event){
   
   if(event.target.nodeName !== "IMG"){
@@ -31,7 +33,7 @@ function onOriginalPicture(event){
     const largeImage = event.target.dataset.source;
     event.preventDefault()
 
-    const instance = basicLightbox.create(`
+    instance = basicLightbox.create(`
     <img src="${largeImage}" width="800" height="600">
     <a>Close</a>`, {
       onShow: () => {
@@ -41,13 +43,15 @@ function onOriginalPicture(event){
         window.removeEventListener("keydown", offModal)
       }
     })
-      function offModal(event){
-                if(event.code !== "Escape"){
-                return
-                }
-              instance.close()
-              }
     
-    instance.show()
+    offModal(event);
+    
+    instance.show();
   }
 
+  function offModal(event){
+    if(event.code !== "Escape"){
+    return
+    }
+  instance.close()
+  }
